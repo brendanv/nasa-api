@@ -1,6 +1,7 @@
 import requests
 
 from nasa.apod import Apod
+from nasa.patents import Patents
 
 DEMO_KEY = 'DEMO_KEY'
 
@@ -26,6 +27,10 @@ class Api(object):
     @property
     def apod(self):
         return type('Apod', (Apod,), dict(api=self))
+
+    @property
+    def patents(self):
+        return type('Patents', (Patents,), dict(api=self))
 
     def _get(self, url, payload):
         payload['api_key'] = self.api_key
