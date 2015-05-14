@@ -3,6 +3,7 @@ import requests
 from nasa.apod import Apod
 from nasa.patents import Patents
 from nasa.temperature import Temperatures
+from nasa.sounds import Sound
 
 DEMO_KEY = 'DEMO_KEY'
 
@@ -36,6 +37,10 @@ class Api(object):
     @property
     def temperatures(self):
         return type('Temperatures', (Temperatures,), dict(api=self))
+
+    @property
+    def sounds(self):
+        return type('Sound', (Sound,), dict(api=self))
 
     def _get(self, url, payload):
         payload['api_key'] = self.api_key
