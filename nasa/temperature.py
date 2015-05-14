@@ -1,18 +1,18 @@
 API_BASE = 'https://api.data.gov/nasa/planetary/earth/temperature/'
 
-class Temperatures(object):
+class Temperature(object):
     """NASA temperature anomalies"""
 
-    def __init__(self, count=0, anomalies=[], raw=None):
-        super(Temperatures, self).__init__()
-        self.count = count
-        self.anomalies = anomalies
-        self._raw = raw
+    def __init__(self, year='', anomaly=None):
+        super(Temperature, self).__init__()
+        self.year = year
+        self.anomaly = anomaly
 
     @classmethod
     def get(cls, api_type, payload):
         url = API_BASE + api_type
-        return Temperatures.from_response(cls.api._get(url, payload))
+        response = cls.api._get(url, payload)
+        return [Temperature.from_response(r) for r in response['results']]
 
     @classmethod
     def for_address(cls, address, begin=None, end=None):
@@ -34,4 +34,4 @@ class Temperatures(object):
 
     @classmethod
     def from_response(cls, content):
-        return Temperatures(content['count'], content['results'], content)
+        return Temperature(content['year'], content['anomaly'])
