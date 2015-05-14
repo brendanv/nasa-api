@@ -1,5 +1,3 @@
-API_BASE = 'https://api.data.gov/nasa/planetary/sounds'
-
 class Sound(object):
     """NASA sound data (BETA)"""
 
