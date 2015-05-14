@@ -16,21 +16,15 @@ class Temperature(object):
 
     @classmethod
     def for_address(cls, address, begin=None, end=None):
-        payload = {'text': address}
-        if begin is not None:
-            payload['begin'] = begin
-        if end is not None:
-            payload['end'] = end
-        return cls.get('address', payload)
+        payload = {'text': address, 'begin': begin, 'end': end}
+        filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
+        return cls.get('address', filtered_payload)
 
     @classmethod
     def for_coords(cls, lat, lon, begin=None, end=None):
-        payload = {'lat': lat, 'lon': lon}
-        if begin is not None:
-            payload['begin'] = begin
-        if end is not None:
-            payload['end'] = end
-        return cls.get('coords', payload)
+        payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
+        filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
+        return cls.get('coords', filtered_payload)
 
     @classmethod
     def from_response(cls, content):
