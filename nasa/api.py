@@ -4,6 +4,7 @@ from nasa.apod import Apod
 from nasa.patents import Patents
 from nasa.temperature import Temperature
 from nasa.sounds import Sound
+from nasa.earth import EarthImagery, EarthAsset
 
 DEMO_KEY = 'DEMO_KEY'
 
@@ -41,6 +42,15 @@ class Api(object):
     @property
     def sounds(self):
         return type('Sound', (Sound,), dict(api=self))
+
+    @property
+    def earth_imagery(self):
+        return type('EarthImagery', (EarthImagery,), dict(api=self))
+
+    @property
+    def earth_assets(self):
+        return type('EarthAsset', (EarthAsset,), dict(api=self))
+
 
     def _get(self, url, payload):
         payload['api_key'] = self.api_key
