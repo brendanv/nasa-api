@@ -27,9 +27,12 @@ class Api(object):
     def __repr__(self):
         return '<NasaAPI api_key="%s">' % self.api_key
 
-    @property
-    def apod(self):
-        return type('Apod', (Apod,), dict(api=self))
+    def get_apod(self, date=None, include_concepts=None):
+        payload = {'date': date, 'concept_tags': include_concepts}
+        return Apod.from_response(self, self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/apod',
+            payload,
+        ))
 
     @property
     def patents(self):
@@ -51,6 +54,17 @@ class Api(object):
     def earth_assets(self):
         return type('EarthAsset', (EarthAsset,), dict(api=self))
 
+    @property
+    def test(self):
+        resp = self._get(
+            'https://api.data.gov/nasa/planetary/apod',
+            {'date': '2015-03-04'}
+        )
+        return ApodNew.from_response(self, resp)
+
+    def _filter_payload_and_get(self, url, payload):
+        filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
+        return self._get(url, filtered_payload)
 
     def _get(self, url, payload):
         payload['api_key'] = self.api_key
