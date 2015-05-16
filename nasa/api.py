@@ -34,6 +34,14 @@ class Api(object):
             payload,
         ))
 
+    def get_sounds(self, query=None, limit=10):
+        payload = {'q': query, 'limit': limit}
+        response = self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/sounds',
+            payload,
+        )
+        return [Sound.from_response(self, r) for r in response['results']]
+
     @property
     def patents(self):
         return type('Patents', (Patents,), dict(api=self))
@@ -41,10 +49,6 @@ class Api(object):
     @property
     def temperatures(self):
         return type('Temperature', (Temperature,), dict(api=self))
-
-    @property
-    def sounds(self):
-        return type('Sound', (Sound,), dict(api=self))
 
     @property
     def earth_imagery(self):
