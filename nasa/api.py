@@ -81,9 +81,15 @@ class Api(object):
             result.update({'lat': lat, 'lon': lon})
         return [EarthAsset.from_response(self, r) for r in results]
 
-    @property
-    def earth_imagery(self):
-        return type('EarthImagery', (EarthImagery,), dict(api=self))
+    def get_earth_image(self, lat, lon, dim=None, date=None, cloud_score=None):
+        payload = {
+            'lat': lat, 'lon': lon, 'dim': dim, 'date': date,
+            'cloud_score': cloud_score,
+        }
+        return EarthImagery.from_response(self, self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/earth/imagery',
+            payload,
+        ))
 
     def _filter_payload_and_get(self, url, payload):
         filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
