@@ -70,17 +70,20 @@ class Api(object):
         )
         return [Patent.from_response(self, r) for r in response['results']]
 
-    @property
-    def patents(self):
-        return type('Patents', (Patents,), dict(api=self))
+    def get_earth_assets(self, lat, lon, begin, end=None):
+        payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
+        response = self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/earth/assets',
+            payload,
+        )
+        results = response['results']
+        for result in results:
+            result.update({'lat': lat, 'lon': lon})
+        return [EarthAsset.from_response(self, r) for r in results]
 
     @property
     def earth_imagery(self):
         return type('EarthImagery', (EarthImagery,), dict(api=self))
-
-    @property
-    def earth_assets(self):
-        return type('EarthAsset', (EarthAsset,), dict(api=self))
 
     def _filter_payload_and_get(self, url, payload):
         filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)

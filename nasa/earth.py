@@ -1,31 +1,24 @@
 import requests
+from nasa.base import NasaApiObject
 from PIL import Image
 from StringIO import StringIO
 
-class EarthAsset(object):
-    """docstring for EarthAsset"""
-    def __init__(self, id, date, lat, lon):
-        super(EarthAsset, self).__init__()
-        self.id = id
-        self.date = date
-        self.lat = lat
-        self.lon = lon
+class EarthAsset(NasaApiObject):
+    """Date and time assets from Nasa's Earth API"""
+    class Meta(object):
+        properties = ['id', 'date', 'lat', 'lon']
+    def __init__(self, api, **kwargs):
+        super(EarthAsset, self).__init__(api, **kwargs)
+        self._image = None
 
     def __repr__(self):
         return '<NasaEarthAsset id="%s">' % self.id
 
-    @classmethod
-    def query(cls, lat, lon, begin, end=None):
-        payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
-        filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
-        response = cls.api._get(
-            'https://api.data.gov/nasa/planetary/earth/assets',
-            payload,
-        )
-        return [
-            EarthAsset(r['id'], r['date'], lat, lon)
-            for r in response['results']
-        ]
+    def get_asset_image(self, dim=None):
+        # API expects only YYYY-MM-DD
+        date = self.date[:10]
+        return self._api.earth_imagery.query(self.lat, self.lon, dim, date)
+
 
 class EarthImagery(object):
     """NASA Earth Imagery API"""
