@@ -1,7 +1,7 @@
 import requests
 
 from nasa.apod import Apod
-from nasa.patents import Patents
+from nasa.patents import Patent
 from nasa.temperature import Temperature
 from nasa.sounds import Sound
 from nasa.earth import EarthImagery, EarthAsset
@@ -57,6 +57,18 @@ class Api(object):
             payload,
         )
         return [Temperature.from_response(self, r) for r in response['results']]
+
+    def get_patents(self, query, include_concepts=None, limit=None):
+        payload = {
+            'query': query,
+            'concept_tags': include_concepts,
+            'limit': limit,
+        }
+        response = self._filter_payload_and_get(
+            'https://api.data.gov/nasa/patents/content',
+            payload,
+        )
+        return [Patent.from_response(self, r) for r in response['results']]
 
     @property
     def patents(self):
