@@ -1,7 +1,7 @@
 import requests
 from PIL import Image
-from StringIO import StringIO
 from nasa.base import NasaApiObject
+from io import BytesIO
 
 API_URL = 'https://api.data.gov/nasa/planetary/apod'
 
@@ -20,5 +20,5 @@ class Apod(NasaApiObject):
     @property
     def image(self):
         if self._image is None:
-            self._image = Image.open(StringIO(requests.get(self.url).content))
+            self._image = Image.open(BytesIO(requests.get(self.url).content))
         return self._image

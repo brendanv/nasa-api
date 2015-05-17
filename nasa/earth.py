@@ -1,7 +1,7 @@
 import requests
 from nasa.base import NasaApiObject
 from PIL import Image
-from StringIO import StringIO
+from io import BytesIO
 
 class EarthAsset(NasaApiObject):
     """Date and time assets from Nasa's Earth API"""
@@ -35,5 +35,5 @@ class EarthImagery(NasaApiObject):
     @property
     def image(self):
         if self._image is None:
-            self._image = Image.open(StringIO(requests.get(self.url).content))
+            self._image = Image.open(BytesIO(requests.get(self.url).content))
         return self._image

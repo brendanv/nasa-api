@@ -20,7 +20,7 @@ class Api(object):
         super(Api, self).__init__()
         self.api_key = api_key
         if api_key is DEMO_KEY:
-            print 'Using default API key. This is not recommended.'
+            print('Using default API key. This is not recommended.')
         self.ratelimit_limit = None
         self.ratelimit_remaining = None
 
@@ -92,7 +92,7 @@ class Api(object):
         ))
 
     def _filter_payload_and_get(self, url, payload):
-        filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
+        filtered_payload = dict((k, v) for k, v in payload.items() if v)
         return self._get(url, filtered_payload)
 
     def _get(self, url, payload):
