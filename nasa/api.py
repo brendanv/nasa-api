@@ -42,13 +42,25 @@ class Api(object):
         )
         return [Sound.from_response(self, r) for r in response['results']]
 
+    def get_temperatures_for_address(self, address, begin=None, end=None):
+        payload = {'text': address, 'begin': begin, 'end': end}
+        response = self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/earth/temperature/address',
+            payload,
+        )
+        return [Temperature.from_response(self, r) for r in response['results']]
+
+    def get_temperatures_for_coords(self, lat, lon, begin=None, end=None):
+        payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
+        response = self._filter_payload_and_get(
+            'https://api.data.gov/nasa/planetary/earth/temperature/coords',
+            payload,
+        )
+        return [Temperature.from_response(self, r) for r in response['results']]
+
     @property
     def patents(self):
         return type('Patents', (Patents,), dict(api=self))
-
-    @property
-    def temperatures(self):
-        return type('Temperature', (Temperature,), dict(api=self))
 
     @property
     def earth_imagery(self):
@@ -57,14 +69,6 @@ class Api(object):
     @property
     def earth_assets(self):
         return type('EarthAsset', (EarthAsset,), dict(api=self))
-
-    @property
-    def test(self):
-        resp = self._get(
-            'https://api.data.gov/nasa/planetary/apod',
-            {'date': '2015-03-04'}
-        )
-        return ApodNew.from_response(self, resp)
 
     def _filter_payload_and_get(self, url, payload):
         filtered_payload = dict((k, v) for k, v in payload.iteritems() if v)
