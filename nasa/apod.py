@@ -12,10 +12,10 @@ class Apod(NasaApiObject):
         properties = ['url', 'title', 'explanation', 'concepts']
 
     def __init__(self, api, **kwargs):
-        self.concepts = {}
         super(Apod, self).__init__(api, **kwargs)
         self._image = None
-        self.concepts = self.concepts.values()
+        if self.concepts is not None:
+            self.concepts = self.concepts.values()
 
     @property
     def image(self):
