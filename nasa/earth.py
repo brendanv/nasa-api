@@ -1,9 +1,19 @@
 import requests
-from nasa.base import NasaApiObject
 from nasa import api
+from nasa.base import NasaApiObject
 from PIL import Image
 from io import BytesIO
 
+
+'''Retrieves the date-times and asset names for available imagery for a
+supplied location
+
+Query Parameters:
+lat   float       Latitude
+lon   float       Longitude
+begin YYYY-MM-DD  Beginning of date range
+end   YYYY-MM-DD  End of date range
+'''
 def assets(lat, lon, begin, end=None):
     payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
     response = api.api_get(
@@ -15,6 +25,18 @@ def assets(lat, lon, begin, end=None):
         result.update({'lat': lat, 'lon': lon})
     return [EarthAsset.from_response(r) for r in results]
 
+''' Retrieves the Landsat 8 image for the supplied location and date
+
+Query Parameters:
+lat         float        Latitude
+lon         float        Longitude
+dim         float        Width and height of image in degrees
+date        YYYY-MM-DD   Date of image; if not supplied,
+                         then the most recent image (i.e., closest to today)
+                         is returned
+cloud_score bool         False calculate the percentage of the image covered
+                         by clouds
+'''
 def image(lat, lon, dim=None, date=None, cloud_score=None):
     payload = {
         'lat': lat, 'lon': lon, 'dim': dim, 'date': date,
@@ -25,6 +47,7 @@ def image(lat, lon, dim=None, date=None, cloud_score=None):
         payload,
     )
     return EarthImagery.from_response(response)
+
 
 class EarthAsset(NasaApiObject):
     """Date and time assets from Nasa's Earth API"""

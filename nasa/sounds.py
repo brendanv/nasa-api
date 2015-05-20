@@ -1,6 +1,13 @@
-from nasa.base import NasaApiObject
 from nasa import api
+from nasa.base import NasaApiObject
 
+
+''' Retrieves sound files uploaded by NASA
+
+Query Parameters:
+query   string  Search text to filter results
+limit   int     Number of tracks to return
+'''
 def sounds(query, limit=10):
     payload = {'q': query, 'limit': limit}
     response = api.api_get(

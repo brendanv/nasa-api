@@ -1,6 +1,15 @@
-from nasa.base import NasaApiObject
 from nasa import api
+from nasa.base import NasaApiObject
 
+
+''' Retrieves patents from NASA's patent portfolio
+
+Query Parameters:
+query         string  Search text to filter results
+concept_tags  bool    Return an ordered dictionary of concepts from the
+                      patent abstract
+limit         int     Number of patents to return
+'''
 def patents(query, concept_tags=None, limit=None):
     payload = {
         'query': query,

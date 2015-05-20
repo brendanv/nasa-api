@@ -1,6 +1,14 @@
 from nasa import api
 from nasa.base import NasaApiObject
 
+
+''' Retrieves local temperature anomalies for an address
+
+Query Parameters
+text    string  Address string
+begin   int     Beginning year for date range, inclusive
+end     int     End year for date range, inclusive
+'''
 def address(address, begin=None, end=None):
     payload = {'text': address, 'begin': begin, 'end': end}
     response = api.api_get(
@@ -9,6 +17,14 @@ def address(address, begin=None, end=None):
     )
     return [Temperature.from_response(r) for r in response['results']]
 
+''' Retrieves local temperature anomalies for coordinates
+
+Query Parameters:
+lat     float   Latitude
+lon     float   Longitude
+begin   int     Beginning year for date range, inclusive
+end     int     End year for date range, inclusive
+'''
 def coordinates(lat, lon, begin=None, end=None):
     payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
     response = api.api_get(

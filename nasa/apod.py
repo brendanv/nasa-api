@@ -1,11 +1,16 @@
 import requests
-from PIL import Image
-from nasa.base import NasaApiObject
 from nasa import api
+from nasa.base import NasaApiObject
+from PIL import Image
 from io import BytesIO
 
-API_URL = 'https://api.data.gov/nasa/planetary/apod'
+''' Retrieves NASA Astronomy Picture of the Day
 
+Query Parameters:
+date            YYYY-MM-DD  The date of the APOD image to retrieve
+concept_tags    bool        Return an ordered dictionary of concepts
+                            from the APOD explanation
+'''
 def apod(date=None, concept_tags=None):
     payload = {'date': date, 'concept_tags': concept_tags}
     return Apod.from_response(api.api_get(
