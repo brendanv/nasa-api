@@ -7,7 +7,11 @@ nasa.py
 Installation
 ------------
 
-For now, the only way to access the package is by  using `git clone` on the Github repository:
+Install using `pip`:
+
+    pip install nasa-api-wrapper
+
+If you'd like to contribute, feel free to run `git clone` on the Github repository:
 
     git clone https://github.com/brendanv/nasa-api.git
 
