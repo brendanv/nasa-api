@@ -1,2 +1,5 @@
 venv/*
 *.pyc
+build/*
+nasa_api_wrapper.egg-info/*
+dist/*
