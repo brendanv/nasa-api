@@ -1,3 +1,5 @@
+from __future__ import division
+import logging
 import os
 import requests
 
@@ -20,8 +22,16 @@ def api_get(url, payload):
 
     ratelimit_limit = int(response.headers['x-ratelimit-limit'])
     ratelimit_remaining = int(response.headers['x-ratelimit-remaining'])
+    percent = ratelimit_remaining / ratelimit_limit
+    if percent < 0.1:
+        api_logger().warn(
+            "Only {:3.1f}% of your rate limit is remaining!".format(percent * 100)
+        )
 
     return body
 
 def api_key():
     return os.environ["NASA_API_KEY"]
+
+def api_logger():
+    return logging.getLogger('nasa_logger')
