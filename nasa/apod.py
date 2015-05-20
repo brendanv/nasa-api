@@ -1,5 +1,5 @@
 import requests
-from nasa import api
+from nasa import api, validations
 from nasa.base import NasaApiObject
 from PIL import Image
 from io import BytesIO
@@ -12,7 +12,10 @@ concept_tags    bool        Return an ordered dictionary of concepts
                             from the APOD explanation
 '''
 def apod(date=None, concept_tags=None):
-    payload = {'date': date, 'concept_tags': concept_tags}
+    payload = {
+        'date': validations.optional_date(date),
+        'concept_tags': concept_tags,
+    }
     return Apod.from_response(api.api_get(
         'https://api.data.gov/nasa/planetary/apod',
         payload,

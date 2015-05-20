@@ -1,4 +1,4 @@
-from nasa import api
+from nasa import api, validations
 from nasa.base import NasaApiObject
 
 
@@ -14,7 +14,7 @@ def patents(query, concept_tags=None, limit=None):
     payload = {
         'query': query,
         'concept_tags': concept_tags,
-        'limit': limit,
+        'limit': validations.optional_int(limit),
     }
     response = api.api_get('https://api.data.gov/nasa/patents/content', payload)
     return [Patent.from_response(r) for r in response['results']]

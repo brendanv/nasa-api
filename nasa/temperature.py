@@ -1,4 +1,4 @@
-from nasa import api
+from nasa import api, validations
 from nasa.base import NasaApiObject
 
 
@@ -10,7 +10,11 @@ begin   int     Beginning year for date range, inclusive
 end     int     End year for date range, inclusive
 '''
 def address(address, begin=None, end=None):
-    payload = {'text': address, 'begin': begin, 'end': end}
+    payload = {
+        'text': address,
+        'begin': validations.optional_int(begin),
+        'end': validations.optional_int(end),
+    }
     response = api.api_get(
         'https://api.data.gov/nasa/planetary/earth/temperature/address',
         payload,
@@ -26,7 +30,12 @@ begin   int     Beginning year for date range, inclusive
 end     int     End year for date range, inclusive
 '''
 def coordinates(lat, lon, begin=None, end=None):
-    payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
+    payload = {
+        'lat': validations.nasa_float(lat),
+        'lon': validations.nasa_float(lon),
+        'begin': validations.optional_int(begin),
+        'end': validations.optional_int(end),
+    }
     response = api.api_get(
         'https://api.data.gov/nasa/planetary/earth/temperature/coords',
         payload,

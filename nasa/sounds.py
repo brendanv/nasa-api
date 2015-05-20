@@ -1,4 +1,4 @@
-from nasa import api
+from nasa import api, validations
 from nasa.base import NasaApiObject
 
 
@@ -9,7 +9,7 @@ query   string  Search text to filter results
 limit   int     Number of tracks to return
 '''
 def sounds(query, limit=10):
-    payload = {'q': query, 'limit': limit}
+    payload = {'q': query, 'limit': validations.optional_int(limit)}
     response = api.api_get(
         'https://api.data.gov/nasa/planetary/sounds',
         payload,

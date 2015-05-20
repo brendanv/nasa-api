@@ -1,5 +1,5 @@
 import requests
-from nasa import api
+from nasa import api, validations
 from nasa.base import NasaApiObject
 from PIL import Image
 from io import BytesIO
@@ -15,7 +15,12 @@ begin YYYY-MM-DD  Beginning of date range
 end   YYYY-MM-DD  End of date range
 '''
 def assets(lat, lon, begin, end=None):
-    payload = {'lat': lat, 'lon': lon, 'begin': begin, 'end': end}
+    payload = {
+        'lat': validations.nasa_float(lat),
+        'lon': validations.nasa_float(lon),
+        'begin': validations.nasa_date(begin),
+        'end': validations.optional_date(end),
+    }
     response = api.api_get(
         'https://api.data.gov/nasa/planetary/earth/assets',
         payload,
@@ -39,7 +44,10 @@ cloud_score bool         False calculate the percentage of the image covered
 '''
 def image(lat, lon, dim=None, date=None, cloud_score=None):
     payload = {
-        'lat': lat, 'lon': lon, 'dim': dim, 'date': date,
+        'lat': validations.nasa_float(lat),
+        'lon': validations.nasa_float(lon),
+        'dim': validations.optional_float(dim),
+        'date': validations.optional_date(date),
         'cloud_score': cloud_score,
     }
     response = api.api_get(
