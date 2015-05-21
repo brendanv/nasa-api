@@ -1,6 +1,3 @@
-nasa.py
-================
-
 `nasa` provides a simple Python wrapper to interact with the [NASA Data APIs](https://data.nasa.gov/developer/external/planetary/). Full documentation for the APIs is available on [NASA's site](https://data.nasa.gov/developer/external/planetary/), and named parameters here are the same as there.
 
 
