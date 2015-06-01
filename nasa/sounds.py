@@ -24,7 +24,7 @@ class Sound(NasaApiObject):
                       'duration', 'last_modified', 'license', 'stream_url',
                       'tag_list']
 
-    def __ini__(self, **kwargs):
+    def __init__(self, **kwargs):
         super(Sound, self).__init__(**kwargs)
 
     def __repr__(self):
