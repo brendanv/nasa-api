@@ -30,6 +30,16 @@ def api_get(url, payload):
 
     return body
 
+''' For API calls that don't strictly fall into the api.nasa.gov set and
+therefore don't require an API key, and don't enforce the same rate limits.
+'''
+def external_api_get(url, payload):
+    payload = dict((k, v) for k, v in payload.items() if v)
+    response = requests.get(url, params=payload)
+    response.raise_for_status()
+    body = response.json()
+    return body
+
 def api_key():
     return os.environ["NASA_API_KEY"]
 

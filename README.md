@@ -119,3 +119,34 @@ Browse sounds released by NASA using the [Sounds API](https://api.nasa.gov/api.h
  ...
  (172463116, 2429)]
 ```
+
+### [MAAS](http://marsweather.ingenology.com/#get_started)
+Browse reports from the Mars Atmospheric Aggregation System
+
+Easily get the latest report:
+
+```python
+>>> from nasa import maas
+>>> report = maas.latest()
+>>> report.min_temp_fahrenheit
+-110.2
+```
+
+Or multiple reports that match a given query:
+
+```python
+>>> from nasa import maas
+>>> reports = maas.archived(terrestrial_date_start='2012-10-01', terrestrial_date_end='2012-10-31')
+>>> reports['count']
+508
+>>> [r.sol for r in reports['results']]
+[84, 83, 82, 81, 80, 79, 78, 77, 76, 75]
+
+# Get the next page of results
+>>> paginator = reports['next']
+>>> next_page = paginator()
+>>> [r.sol for r in next_page['results']]
+[74, 73, 72, 71, 70, 68, 67, 66, 65, 64]
+```
+
+`archived` takes keyword args that allow you to filter by most report fields available on the MAASReport.
