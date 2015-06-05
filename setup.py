@@ -3,13 +3,13 @@ from setuptools import setup, find_packages
 
 setup(
     name='nasa-api-wrapper',
-    version="0.1.1",
+    version="0.1.2",
     author="Brendan Viscomi",
     author_email="contact@brendanviscomi.com",
     description="A convenient wrapper for NASA's APIs",
     url="https://github.com/brendanv/nasa-api",
     classifiers=[
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Natural Language :: English',
         'Environment :: Console',
