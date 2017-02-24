@@ -11,7 +11,7 @@ limit   int     Number of tracks to return
 def sounds(query, limit=10):
     payload = {'q': query, 'limit': validations.optional_int(limit)}
     response = api.api_get(
-        'https://api.data.gov/nasa/planetary/sounds',
+        'https://api.nasa.gov/planetary/sounds',
         payload,
     )
     return [Sound.from_response(r) for r in response['results']]
