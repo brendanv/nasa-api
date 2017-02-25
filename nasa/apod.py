@@ -17,7 +17,7 @@ def apod(date=None, concept_tags=None):
         'concept_tags': concept_tags,
     }
     return Apod.from_response(api.api_get(
-        'https://api.data.gov/nasa/planetary/apod',
+        'https://api.nasa.gov/planetary/apod',
         payload,
     ))
 

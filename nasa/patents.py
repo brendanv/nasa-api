@@ -16,7 +16,7 @@ def patents(query, concept_tags=None, limit=None):
         'concept_tags': concept_tags,
         'limit': validations.optional_int(limit),
     }
-    response = api.api_get('https://api.data.gov/nasa/patents/content', payload)
+    response = api.api_get('https://api.nasa.gov/patents/content', payload)
     return [Patent.from_response(r) for r in response['results']]
 
 class Patent(NasaApiObject):

@@ -22,7 +22,7 @@ def assets(lat, lon, begin, end=None):
         'end': validations.optional_date(end),
     }
     response = api.api_get(
-        'https://api.data.gov/nasa/planetary/earth/assets',
+        'https://api.nasa.gov/planetary/earth/assets',
         payload,
     )
     results = response['results']
@@ -51,7 +51,7 @@ def image(lat, lon, dim=None, date=None, cloud_score=None):
         'cloud_score': cloud_score,
     }
     response = api.api_get(
-        'https://api.data.gov/nasa/planetary/earth/imagery',
+        'https://api.nasa.gov/planetary/earth/imagery',
         payload,
     )
     return EarthImagery.from_response(response)
