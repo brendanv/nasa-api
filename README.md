@@ -63,34 +63,6 @@ Or simply fetch the images directly:
 'LC8_L1T_TOA/LC81270592014035LGN00'
 ```
 
-### Earth Temperature Anomalies
-
-Determine how much warmer or cooler a location is by using the [temperature anomalies API](https://api.nasa.gov/api.html#earth-temperature-anomalies).
-
-Get data by address:
-```python
->>> from nasa import temperature
->>> temps = temperature.address('1600 Pennsylvania Ave, Washington, DC', begin=2010)
->>> [(t.year, t.anomaly) for t in temps]
-[(2010, 0.966000021),
- (2011, 1.236700058),
- (2012, 1.936300039),
- (2013, 0.373100013),
- (2014, -0.219600007)]
-```
-
-Or by coordinates:
-```python
->>> from nasa import temperature
->>> temps = temperature.coordinates(lat=1.6, lon=100.3, begin=2010)
->>> [(t.year, t.anomaly) for t in temps]
-[(2010, 0.987699986),
- (2011, 0.572600007),
- (2012, 0.661599994),
- (2013, 0.8046),
- (2014, 0.861299992)]
-```
-
 ### Patents
 
 See what cool patents are held in the NASA patent portfolio using the [Patents API](https://api.nasa.gov/api.html#patents).
