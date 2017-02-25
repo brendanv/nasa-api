@@ -57,7 +57,7 @@ You can use the Assets API to fetch images:
 
 Or simply fetch the images directly:
 ```python
->>> from nasa import apod
+>>> from nasa import earth 
 >>> image = earth.image(lat=1.5, lon=100.75, date='2014-02-01')
 >>> image.id
 'LC8_L1T_TOA/LC81270592014035LGN00'
