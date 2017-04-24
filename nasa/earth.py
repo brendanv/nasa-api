@@ -68,10 +68,10 @@ class EarthAsset(NasaApiObject):
     def __repr__(self):
         return '<NasaEarthAsset id="%s">' % self.id
 
-    def get_asset_image(self, dim=None):
+    def get_asset_image(self, dim=None, cloud_score=None):
         # API expects only YYYY-MM-DD
         date = self.date[:10]
-        return image(self.lat, self.lon, dim, date)
+        return image(self.lat, self.lon, dim, date, cloud_score)
 
 
 class EarthImagery(NasaApiObject):
