@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='nasa-api-wrapper',
-    version="0.1.3",
+    version="0.1.4",
     author="Brendan Viscomi",
     author_email="contact@brendanviscomi.com",
     description="A convenient wrapper for NASA's APIs",
