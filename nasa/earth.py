@@ -51,7 +51,7 @@ def image(lat, lon, dim=None, date=None, cloud_score=None):
         'cloud_score': cloud_score,
     }
     response = api.api_get(
-        'https://api.nasa.gov/planetary/earth/imagery',
+        'https://api.nasa.gov/planetary/earth/imagery/',
         payload,
     )
     return EarthImagery.from_response(response)
