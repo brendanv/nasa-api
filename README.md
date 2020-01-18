@@ -1,4 +1,4 @@
-`nasa` provides a simple Python wrapper to interact with the [NASA Data APIs](https://data.nasa.gov/developer/external/planetary/). Full documentation for the APIs is available on [NASA's site](https://data.nasa.gov/developer/external/planetary/), and named parameters here are the same as there.
+`nasa` provides a simple Python wrapper to interact with the [NASA Data APIs](https://api.nasa.gov/). Full documentation for the APIs is available on [NASA's site](https://api.nasa.gov/), and named parameters here are the same as there.
 
 
 Installation
@@ -16,7 +16,7 @@ If you'd like to contribute, feel free to run `git clone` on the Github reposito
 Usage
 -----
 
-[Acquire an API key](https://data.nasa.gov/developer/external/planetary/#apply-for-an-api-key) and set your API key as the NASA_API_KEY environment variable before using the API!
+[Acquire an API key](https://api.nasa.gov/) and set your API key as the NASA_API_KEY environment variable before using the API!
 
 Supported APIs
 -------
@@ -36,7 +36,7 @@ Receive images and metadata about NASA's current and past [Astronomy Pictures of
 
 ### Earth Assets and Imagery
 
-Fetch Landsat 8 images of any location on Earth! This consists of two distinct APIs: [Assets](https://api.nasa.gov/api.html#assets) that detail when a picture was taken of a given location, and the actual [Imagery](https://api.nasa.gov/api.html#imagery) for that location and time.
+Fetch Landsat 8 images of any location on Earth! This consists of two distinct APIs: Assets that detail when a picture was taken of a given location, and the actual Imagery for that location and time.
 
 You can use the Assets API to fetch images:
 ```python
@@ -65,7 +65,7 @@ Or simply fetch the images directly:
 
 ### Patents
 
-See what cool patents are held in the NASA patent portfolio using the [Patents API](https://api.nasa.gov/api.html#patents).
+See what cool patents are held in the NASA patent portfolio using the Patents API.
 
 ```python
 >>> from nasa import patents
@@ -80,7 +80,7 @@ See what cool patents are held in the NASA patent portfolio using the [Patents A
 
 ### Sounds
 
-Browse sounds released by NASA using the [Sounds API](https://api.nasa.gov/api.html#sounds).
+Browse sounds released by NASA using the Sounds API.
 
 ```python
 >>> from nasa import sounds
